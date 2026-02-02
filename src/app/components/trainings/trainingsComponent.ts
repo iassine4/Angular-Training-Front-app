@@ -1,21 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Training } from '../../models/training.model';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../serveices/cart';
 import { Router } from '@angular/router';
+import { SearchBarComponent } from '../search-bar/search-bar';
 
 
 @Component({
   selector: 'app-trainings',
- // standalone: true,
-  imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [FormsModule, SearchBarComponent],
   templateUrl: './trainingsComponent.html',
   styleUrl: './trainingsComponent.css',
 })
 export class TrainingsComponent implements OnInit {
   // liste affichée dans la vue
   listTrainings : Training[] | undefined;
+
+  // Terme saisi (fourni par SearchBarComponent)
+  searchTerm = '';
+
 
    /**
    * DI (Injection de dépendances) : Angular injecte CartService (pas de "new CartService()")
@@ -60,6 +65,21 @@ export class TrainingsComponent implements OnInit {
     this.router.navigateByUrl('/cart');
     //this.router.navigate(['cart']);      // Navigation vers /cart
 
+  }
+  
+  onSearchTermChange(term: string): void {
+    this.searchTerm = term;
+  }
+
+  get filteredTrainings(): Training[] {
+    const term = this.searchTerm.toLowerCase();
+    if (!term) return this.listTrainings || [];
+
+    return (this.listTrainings || []).filter((t) => {
+      const name = (t.name ?? '').toLowerCase();
+      const description = (t.description ?? '').toLowerCase();
+      return name.includes(term) || description.includes(term);
+    });
   }
 
   ngOnDestroy(): void {

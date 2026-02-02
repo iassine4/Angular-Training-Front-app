@@ -4,21 +4,33 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-search-bar',
+  standalone: true,
   imports: [FormsModule],
   templateUrl: './search-bar.html',
   styleUrl: './search-bar.css',
 })
-export class SearchBar {
+export class SearchBarComponent {
 
-  // Contient le texte tapé par l’utilisateur (lié via ngModel)
+  // Contient la valeur tapée dans l'input par l’utilisateur (lié via ngModel)
   term = '';
 
-  // Event envoyé au parent à chaque changement de valeur
+  /**
+   * Output (= événement) émis vers le parent.
+   * Le parent écoutera : (termChange)="..."
+   */
   @Output() termChange = new EventEmitter<string>();
 
+  /**
+   * Appelé à chaque changement de l'input.
+   * On stocke la valeur et on la "push" au parent.
+   */
   onTermInput(): void {
     // On émet une version "nettoyée" (trim) pour éviter les espaces parasites
     this.termChange.emit(this.term.trim());
+  }
+
+  onSearch() {
+    throw new Error('Method not implemented.');
   }
 
   clear(): void {

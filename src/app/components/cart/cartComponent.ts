@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartService } from '../../serveices/cart';
 import { Router } from '@angular/router';
+import { SearchBarComponent } from '../search-bar/search-bar';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart',
-  imports: [],
+  standalone: true,
+  imports: [FormsModule, SearchBarComponent],
   templateUrl: './cartComponent.html',
   styleUrls: ['./cartComponent.css'],
 })
