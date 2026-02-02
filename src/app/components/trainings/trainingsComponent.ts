@@ -46,9 +46,9 @@ export class TrainingsComponent implements OnInit {
 
     // Init du composant : chargement de la liste des formations (mock)
     this.listTrainings = [
-      {id : 1, name : 'java', description : 'Formation Java SE 8 sur 5 jours', price : 1500, quantity: 1},
-      {id : 2, name : 'python', description : 'Formation Python base sur 5 jours', price : 1000, quantity: 1},
-      {id : 3, name : 'Docker', description : 'Formation Docker sur 3 jours', price : 900, quantity: 1}
+      {id : 1, name : 'java', description : 'Formation Java SE 8 sur 5 jours', price : 1500, quantity: 1, category: 'Development'},
+      {id : 2, name : 'python', description : 'Formation Python base sur 5 jours', price : 1000, quantity: 1, category: 'Development'},
+      {id : 3, name : 'Docker', description : 'Formation Docker sur 3 jours', price : 900, quantity: 1, category: 'DevOps'}
     ];
   }
 
