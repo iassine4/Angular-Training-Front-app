@@ -1,1 +1,14 @@
-<p>search-bar works!</p>
+<div class="d-flex gap-2 align-items-center">
+  <input
+    class="form-control"
+    type="text"
+    placeholder="Rechercher une formation (titre ou description)"
+    [(ngModel)]="term"
+    (ngModelChange)="onTermInput()"
+  />
+
+  <button class="btn btn-outline-secondary" type="button" (click)="onSearch()">
+    Chercher
+  </button>
+</div>
+
