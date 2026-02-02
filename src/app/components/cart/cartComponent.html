@@ -1,0 +1,53 @@
+
+<div class="container">
+    @if (cartService.getAll().length > 0) {
+        <h2>Pannier</h2>
+        <ng-container>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOM</th>
+                        <th>DESCRIPTION</th>
+                        <th>QUANTITE</th>
+                         <th>PRIX</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (training of cartService.getAll(); track training.id) {
+                    <tr>
+                        <td>{{ training.id }}</td>
+                        <td>{{ training.name }}</td>
+                        <td>{{ training.description }}</td>
+                        <td>{{ training.quantity }}</td>
+                        <td>{{ training.price }}</td>
+                        <td>
+                             <!-- event binding => (click) déclenche la méthode TS -->
+                            <button class="btn btn-danger" (click)="removeTraining(training.id)">Supprimer</button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">
+                            <strong>Total</strong>
+                        </td>
+                        <td>
+                            <strong>{{ cartService.total() }}</strong>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </ng-container>
+        <div>
+            <button class="btn btn-success" (click)="onCommande()">Commande</button>
+        </div>
+    } @else {
+        <div>
+            <h2>Pannier vide</h2>
+        </div>
+    }
+</div>

@@ -1,0 +1,34 @@
+<div class="container">
+    @if (listTrainings && listTrainings.length > 0) {
+        <ng-container>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>NOM</th>
+                        <th>DESCRIPTION</th>
+                        <th>PRIX</th>
+                        <th>QUANTITE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (training of listTrainings; track training.id) {
+                    <tr>
+                        <td>{{ training.id }}</td>
+                        <td>{{ training.name }}</td>
+                        <td>{{ training.description }}</td>
+                        <td>{{ training.price }}</td>
+                        <td>
+                            <input type="number" min="1" name="quantity" style="width: 60px" [(ngModel)]="training.quantity" />
+                        </td>
+                        <td>
+                             <!-- event binding => (click) déclenche la méthode TS -->
+                            <button class="btn btn-success" (click)="onAddToCart(training)">Ajouter au panier</button>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </ng-container>
+    }
+</div>

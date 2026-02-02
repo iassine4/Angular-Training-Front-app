@@ -1,0 +1,81 @@
+<form #f="ngForm" (ngSubmit)="onSaveCustomer()" class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+
+      <div class="card shadow-sm border-0">
+        <div class="card-body p-4 p-md-5">
+          <h2 class="h4 mb-4 text-center">Créer compte</h2>
+
+          <!-- Username -->
+          <div class="mb-3">
+            <label for="username" class="form-label">Nom d'utilisateur</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="form-control"
+              placeholder="ex: john_doe"
+              required
+              minlength="3"
+              ngModel
+              #username="ngModel"
+              [class.is-invalid]="username.invalid && (username.dirty || username.touched)"
+            />
+            <div class="invalid-feedback">
+                Un nom d'utilisateur est requis (min 3 characters).
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              class="form-control"
+              placeholder="ex: john@example.com"
+              required
+              email
+              ngModel
+              #email="ngModel"
+              [class.is-invalid]="email.invalid && (email.dirty || email.touched)"
+            />
+            <div class="invalid-feedback">
+              Veuillez saisir une adresse e-mail valide.
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="mb-4">
+            <label for="password" class="form-label">Mot de passe</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="form-control"
+              placeholder="••••••••"
+              required
+              minlength="6"
+              ngModel
+              #password="ngModel"
+              [class.is-invalid]="password.invalid && (password.dirty || password.touched)"
+            />
+            <div class="invalid-feedback">
+              Un mot de passe est requis (min 6 characters).
+            </div>
+            <div class="form-text">
+              Utilisez au moins 6 characters.
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100" [disabled]="f.invalid">
+            Se connecter
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
