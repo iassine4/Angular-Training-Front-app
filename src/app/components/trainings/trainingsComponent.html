@@ -1,6 +1,9 @@
 <div class="container">
      <!-- Barre de recherche -->
   <app-search-bar (termChange)="onSearchTermChange($event)"></app-search-bar>
+  
+  <!-- vérif si l’événement (termChange) arrive au parent -->
+  <p class="text-muted">searchTerm = "{{ searchTerm }}"</p>
         <!-- Liste des formations -->   
     @if (filteredTrainings.length > 0) {
         <ng-container>

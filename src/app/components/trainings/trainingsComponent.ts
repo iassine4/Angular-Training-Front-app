@@ -69,6 +69,7 @@ export class TrainingsComponent implements OnInit {
   
   onSearchTermChange(term: string): void {
     this.searchTerm = term;
+    console.log('[Trainings] searchTerm =>', this.searchTerm);
   }
 
   get filteredTrainings(): Training[] {
