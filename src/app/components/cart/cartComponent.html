@@ -4,7 +4,7 @@
   <app-search-bar (termChange)="onSearchTermChange($event)"></app-search-bar>
   
         <!-- Liste des formations dans le panier -->
-    @if (filteredCartTrainigs.length > 0) {
+    @if (filteredCartTrainings.length > 0) {
         <h2>Pannier</h2>
         <ng-container>
             <table class="table table-striped table-hover">
@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (training of filteredCartTrainigs; track training.id) {
+                    @for (training of filteredCartTrainings; track training.id) {
                     <tr>
                         <td>{{ training.id }}</td>
                         <td>{{ training.name }}</td>

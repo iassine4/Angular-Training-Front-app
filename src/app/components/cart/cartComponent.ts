@@ -17,12 +17,13 @@ export class CartComponent implements OnInit, OnDestroy {
   // Terme saisi (barre de recherche)
   searchTerm = '';
 
-  // public => accessible directement dans le template : cartService.total(), cartService.getAll()
+  // Injection du service + router
   constructor(public cartService: CartService, private router: Router){
 
      console.log('[Cart] constructor');//--
    }
 
+   // Reçoit le texte émis par <app-search-bar>
    onSearchTermChange(term: string): void {
     this.searchTerm = term;
   }
@@ -31,12 +32,16 @@ export class CartComponent implements OnInit, OnDestroy {
    * Liste filtrée à afficher dans le panier.
    * Filtre sur name + description (comme demandé dans l'exo).
    */
-  get filteredCartTrainigs(): Training[] {
+  get filteredCartTrainings(): Training[] {
     const trainings = this.cartService.getAll();
     const term = this.searchTerm.toLowerCase();
 
     if (!term) return trainings;
 
+    /**
+     * filter : renvoie un nouveau tableau avec uniquement les éléments qui passent le test.
+     * (t) => { ... } : callback appelée pour chaque Training du tableau.
+     */
     return trainings.filter((t) => {
       const name = (t.name ?? '').toLowerCase();
       const description = (t.description ?? '').toLowerCase();
