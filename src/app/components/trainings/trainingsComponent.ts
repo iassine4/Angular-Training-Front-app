@@ -16,11 +16,11 @@ import { SearchBarComponent } from '../search-bar/search-bar';
 })
 export class TrainingsComponent implements OnInit {
   // liste affichée dans la vue
-  listTrainings : Training[] | undefined;
-
+  listTrainings : Training[] = [];
   // Terme saisi (fourni par SearchBarComponent)
   searchTerm = '';
-
+  selectedCategory = 'all';      // 'all' = pas de filtre
+  maxPrice: number | null = null; // null = pas de filtre
 
    /**
    * DI (Injection de dépendances) : Angular injecte CartService (pas de "new CartService()")
@@ -72,15 +72,34 @@ export class TrainingsComponent implements OnInit {
     console.log('[Trainings] searchTerm =>', this.searchTerm);
   }
 
-  get filteredTrainings(): Training[] {
-    const term = this.searchTerm.toLowerCase();
-    if (!term) return this.listTrainings || [];
+  get categories(): string[] {
+  // Set => supprime les doublons
+  return Array.from(new Set(this.listTrainings.map(t => t.category))).sort();
+}
 
-    return (this.listTrainings || []).filter((t) => {
+  get filteredTrainings(): Training[] {
+    const term = this.searchTerm.trim().toLowerCase();
+    let result = this.listTrainings;
+
+    //  Filtre mot-clé (name + description)
+    if (term){
+      result = result.filter(t => {
       const name = (t.name ?? '').toLowerCase();
       const description = (t.description ?? '').toLowerCase();
       return name.includes(term) || description.includes(term);
     });
+  }
+
+    // Filtre catégorie
+    if (this.selectedCategory !== 'all') {
+      result = result.filter(t => t.category === this.selectedCategory);
+    }
+
+    // Filtre prix max
+    if (this.maxPrice !== null) {
+      result = result.filter(t => t.price <= this.maxPrice!);
+    }
+  return result;
   }
 
   ngOnDestroy(): void {
