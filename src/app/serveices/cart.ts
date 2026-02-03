@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Training } from '../models/training.model';
+import { isPlatformBrowser } from '@angular/common';
 
 
 /**
@@ -14,8 +15,16 @@ import { Training } from '../models/training.model';
 })
 export class CartService {
 
+  private readonly STORAGE_KEY = 'cart_trainings';
+  private readonly isBrowser: boolean;
+
   // état privé du panier (liste des formations ajoutées)
   private trainingsInCart: Training[] = [];
+
+  constructor(@Inject(PLATFORM_ID) platformId: object) {
+    this.isBrowser = isPlatformBrowser(platformId);
+    this.loadFromStorage();
+  }
 
   getAll(): Training[] {
     return this.trainingsInCart;
@@ -29,6 +38,7 @@ export class CartService {
 
   removeTraining(Id: number) {
     this.trainingsInCart = this.trainingsInCart.filter(training => training.id !== Id);
+    this.saveToStorage();
   }
   
   addTraining(training: Training) {
@@ -42,6 +52,8 @@ export class CartService {
       quantity: this.normalizeQuantity(training.quantity ?? 1),
     });
   }
+    this.saveToStorage();
+
   }
 
   total(): number {
@@ -52,6 +64,25 @@ export class CartService {
     return sum;
   }
 
-  constructor() {}
-  
+  private saveToStorage(): void {
+    if (!this.isBrowser) return;
+
+    const data = JSON.stringify(this.trainingsInCart);
+    localStorage.setItem(this.STORAGE_KEY, data);
+  }
+
+  private loadFromStorage(): void {
+    if (!this.isBrowser) return;
+
+    const raw = localStorage.getItem(this.STORAGE_KEY);
+    if (!raw) return;
+
+    try {
+      this.trainingsInCart = JSON.parse(raw) as Training[];
+    } catch {
+      // si les données sont corrompues, on repart propre
+      this.trainingsInCart = [];
+      localStorage.removeItem(this.STORAGE_KEY);
+    }
+  }
 }
