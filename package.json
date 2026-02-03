@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:training-front-app": "node dist/training-front-app/server/server.mjs",
-    "api": "json-server --watch db.json --port 3000"
+    "api": "json-server --watch api/db.json --port 3000"
   },
   "prettier": {
     "printWidth": 100,
