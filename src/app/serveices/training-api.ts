@@ -8,9 +8,9 @@ import { Training } from '../models/training.model';
 })
 export class TrainingApiService {  
 
-    private apiUrl = '/api/trainings';
+    private readonly apiUrl = '/api/trainings';
     
-    constructor(private http: HttpClient) { }
+    constructor(private readonly http: HttpClient) { }
 
     public getTrainings(){
         return this.http.get<Training[]>(`${this.apiUrl}/trainings`);
