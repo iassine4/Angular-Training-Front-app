@@ -1,0 +1,39 @@
+{
+  "trainings": [
+    {
+      "id": 1,
+      "title": "Angular Fundamentals",
+      "description": "Components, templates, data binding, routing basics.",
+      "price": 199,
+      "category": "FRONT"
+    },
+    {
+      "id": 2,
+      "title": "RxJS Essentials",
+      "description": "Observables, operators, async patterns for Angular.",
+      "price": 149,
+      "category": "FRONT"
+    },
+    {
+      "id": 3,
+      "title": "Node.js Basics",
+      "description": "Server-side JavaScript with Node.js and Express.",
+      "price": 179,
+      "category": "BACK"
+    },
+    {
+      "id": 4,
+      "title": "RESTful API Design",
+      "description": "Building and consuming RESTful APIs with Node.js.",
+      "price": 159,
+      "category": "BACK"
+    },
+    {
+      "id": 5,
+      "title": "Full-Stack Development",
+      "description": "Integrating Angular front-end with Node.js back-end.",
+      "price": 299,
+      "category": "FULLSTACK"
+    }
+  ]
+}
