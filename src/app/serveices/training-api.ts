@@ -8,15 +8,15 @@ import { Training } from '../models/training.model';
 })
 export class TrainingApiService {  
 
-    private readonly apiUrl = '/api/trainings';
+    private readonly apiUrl = '/api'; // via proxy => http://localhost:3000/api
     
-    constructor(private readonly http: HttpClient) { }
+    constructor(private readonly httpClient: HttpClient) { }
 
     public getTrainings(){
-        return this.http.get<Training[]>(`${this.apiUrl}/trainings`);
+        return this.httpClient.get<Training[]>(`${this.apiUrl}/trainings`);
     }
 
     public getTrainingById(id: number){
-        return this.http.get<Training>(`${this.apiUrl}/${id}`);
+        return this.httpClient.get<Training>(`${this.apiUrl}/${id}`);
     }
 }
