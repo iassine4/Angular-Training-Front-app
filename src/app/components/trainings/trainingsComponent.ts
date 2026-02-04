@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Training } from '../../models/training.model';
+import { CommonModule } from '@angular/common';
+import { TrainingApiService } from '../../serveices/training-api';
 
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../serveices/cart';
@@ -10,11 +12,11 @@ import { SearchBarComponent } from '../search-bar/search-bar';
 @Component({
   selector: 'app-trainings',
   standalone: true,
-  imports: [FormsModule, SearchBarComponent],
+  imports: [FormsModule, SearchBarComponent, CommonModule],
   templateUrl: './trainingsComponent.html',
   styleUrl: './trainingsComponent.css',
 })
-export class TrainingsComponent implements OnInit {
+export class TrainingsComponent implements OnInit, OnDestroy {
   // liste affichée dans la vue
   listTrainings : Training[] = [];
   // Terme saisi (fourni par SearchBarComponent)
@@ -30,7 +32,7 @@ export class TrainingsComponent implements OnInit {
    * NB (slide 24) : private/public dans le constructor
    * => ça crée automatiquement un attribut de classe (pas besoin de le déclarer au-dessus)
    */
-  constructor(private cartService: CartService, private router: Router){
+  constructor(private cartService: CartService, private router: Router, private readonly trainingApiService: TrainingApiService) {
 
     console.log('[Trainings] constructor');//
   }
@@ -44,12 +46,34 @@ export class TrainingsComponent implements OnInit {
 
     console.log('[Trainings] ngOnInit');//--
 
+    this.trainingApiService.getTrainings().subscribe({
+    next: (trainings) => {
+      this.listTrainings = trainings;
+      console.log('[Trainings] trainings loaded =>', trainings.length);
+    },
+    error: (error) => {
+      console.error('[Trainings] API error', error);
+      this.listTrainings = [];
+    },
+  });
+    
+
     // Init du composant : chargement de la liste des formations (mock)
-    this.listTrainings = [
+/*  this.listTrainings = [
       {id : 1, name : 'java', description : 'Formation Java SE 8 sur 5 jours', price : 1500, quantity: 1, category: 'Development'},
       {id : 2, name : 'python', description : 'Formation Python base sur 5 jours', price : 1000, quantity: 1, category: 'Development'},
       {id : 3, name : 'Docker', description : 'Formation Docker sur 3 jours', price : 900, quantity: 1, category: 'DevOps'}
     ];
+*/
+   /* this.trainingApi.getTrainings().subscribe({
+      next: (trainings) => {
+        this.listTrainings = trainings;
+        console.log('[Trainings] ngOnInit - trainings loaded:', this.listTrainings);
+      },
+      error: (error) => {
+        console.error('[Trainings] ngOnInit - error loading trainings:', error);
+      }
+    });*/
   }
 
   /**
@@ -75,7 +99,7 @@ export class TrainingsComponent implements OnInit {
   get categories(): string[] {
   // Set => supprime les doublons
   return Array.from(new Set(this.listTrainings.map(t => t.category))).sort();
-}
+  }
 
   get filteredTrainings(): Training[] {
     const term = this.searchTerm.trim().toLowerCase();
