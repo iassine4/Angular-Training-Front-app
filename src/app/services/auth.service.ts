@@ -16,7 +16,7 @@ interface UserRecord extends AuthUser {
 @Injectable({
   providedIn: 'root',
 })
-export class Auth {
+export class AuthService {
   
   // Base "mock" données utilisateurs
   private readonly users: UserRecord[] = [

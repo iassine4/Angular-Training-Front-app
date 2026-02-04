@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Training } from '../../models/training.model';
 import { CommonModule } from '@angular/common';
-import { TrainingApiService } from '../../services/training-api';
+import { TrainingApiService } from '../../services/training-api.service';
 
 import { FormsModule } from '@angular/forms';
-import { CartService } from '../../services/cart';
+import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
 import { SearchBarComponent } from '../search-bar/search-bar';
 
