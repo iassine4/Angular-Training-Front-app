@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CartService } from '../../serveices/cart';
+import { CartService } from '../../services/cart';
 import { Router } from '@angular/router';
 import { SearchBarComponent } from '../search-bar/search-bar';
 import { FormsModule } from '@angular/forms';

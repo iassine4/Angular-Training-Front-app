@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Training } from '../../models/training.model';
 import { CommonModule } from '@angular/common';
-import { TrainingApiService } from '../../serveices/training-api';
+import { TrainingApiService } from '../../services/training-api';
 
 import { FormsModule } from '@angular/forms';
-import { CartService } from '../../serveices/cart';
+import { CartService } from '../../services/cart';
 import { Router } from '@angular/router';
 import { SearchBarComponent } from '../search-bar/search-bar';
 
@@ -65,15 +65,6 @@ export class TrainingsComponent implements OnInit, OnDestroy {
       {id : 3, name : 'Docker', description : 'Formation Docker sur 3 jours', price : 900, quantity: 1, category: 'DevOps'}
     ];
 */
-   /* this.trainingApi.getTrainings().subscribe({
-      next: (trainings) => {
-        this.listTrainings = trainings;
-        console.log('[Trainings] ngOnInit - trainings loaded:', this.listTrainings);
-      },
-      error: (error) => {
-        console.error('[Trainings] ngOnInit - error loading trainings:', error);
-      }
-    });*/
   }
 
   /**
