@@ -1,62 +1,58 @@
 <div class="container">
-     <!-- Barre de recherche -->
-  <app-search-bar (termChange)="onSearchTermChange($event)"></app-search-bar>
+    <!-- Barre de recherche -->
+    <app-search-bar (termChange)="onSearchTermChange($event)"></app-search-bar>
 
-  <!-- filtre catégorie + prix max -->
-  <div class="row g-2 mb-3">
-    <div class="col-md-6">
-      <label class="form-label">Catégorie</label>
-      <select class="form-select" [(ngModel)]="selectedCategory">
-        <option value="all">Toutes</option>
-        @for (category of categories; track category) {
-          <option [value]="category">{{ category }}</option>
-        }
-      </select>
+    <!-- filtre catégorie + prix max -->
+    <div class="row g-2 mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Catégorie</label>
+            <select class="form-select" [(ngModel)]="selectedCategory">
+                <option value="all">Toutes</option>
+                @for (category of categories; track category) {
+                <option [value]="category">{{ category }}</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Prix maximum</label>
+            <input type="number" class="form-control" min="0" [(ngModel)]="maxPrice" placeholder="Aucun" />
+        </div>
     </div>
-    <div class="col-md-6">
-      <label class="form-label">Prix maximum</label>
-      <input
-        type="number"
-        class="form-control"
-        min="0"
-        [(ngModel)]="maxPrice"
-        placeholder="Aucun"
-      />
-  <!-- vérif si l’événement (termChange) arrive au parent -->
-  <p class="text-muted">searchTerm = "{{ searchTerm }}"</p>
-        <!-- Liste des formations -->   
+    
+    <!-- Liste des formations -->
     @if (filteredTrainings.length > 0) {
-        <ng-container>
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>NOM</th>
-                        <th>DESCRIPTION</th>
-                        <th>CATEGORIE</th>
-                        <th>PRIX</th>
-                        <th>QUANTITE</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (training of filteredTrainings; track training.id) {
-                    <tr>
-                        <td>{{ training.id }}</td>
-                        <td>{{ training.name }}</td>
-                        <td>{{ training.description }}</td>
-                        <td>{{ training.category }}</td>
-                        <td>{{ training.price }}</td>
-                        <td>
-                            <input type="number" min="1" name="quantity" style="width: 60px" [(ngModel)]="training.quantity" />
-                        </td>
-                        <td>
-                             <!-- event binding => (click) déclenche la méthode TS -->
-                            <button class="btn btn-success" (click)="onAddToCart(training)">Ajouter au panier</button>
-                        </td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </ng-container>
+    <ng-container>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOM</th>
+                    <th>DESCRIPTION</th>
+                    <th>CATEGORIE</th>
+                    <th>PRIX</th>
+                    <th>QUANTITE</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (training of filteredTrainings; track training.id) {
+                <tr>
+                    <td>{{ training.id }}</td>
+                    <td>{{ training.name }}</td>
+                    <td>{{ training.description }}</td>
+                    <td>{{ training.category }}</td>
+                    <td>{{ training.price }}</td>
+                    <td>
+                        <input type="number" min="1" name="quantity" style="width: 60px"
+                            [(ngModel)]="training.quantity" />
+                    </td>
+                    <td>
+                        <!-- event binding => (click) déclenche la méthode TS -->
+                        <button class="btn btn-success" (click)="onAddToCart(training)">Ajouter au panier</button>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </ng-container>
     }
 </div>
