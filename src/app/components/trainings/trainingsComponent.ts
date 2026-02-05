@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
 import { SearchBarComponent } from '../search-bar/search-bar';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -32,7 +33,10 @@ export class TrainingsComponent implements OnInit, OnDestroy {
    * NB (slide 24) : private/public dans le constructor
    * => ça crée automatiquement un attribut de classe (pas besoin de le déclarer au-dessus)
    */
-  constructor(private cartService: CartService, private router: Router, private readonly trainingApiService: TrainingApiService) {
+  constructor(private cartService: CartService, 
+              private router: Router, 
+              private readonly trainingApiService: TrainingApiService,
+              private readonly authService: AuthService) {
 
     console.log('[Trainings] constructor');//
   }
@@ -72,12 +76,17 @@ export class TrainingsComponent implements OnInit, OnDestroy {
    * - ajoute au panier via le service
    * - puis navigation vers la page panier (slide routage : this.router.navigate(['cart']))
    */
-  onAddToCart(training: Training) {
+  onAddToCart(training: Training): void {
+
+    if (!this.authService.isAuthenticated) {
+    this.router.navigate(['/login'], { queryParams: { returnUrl: '/cart' } });
+    return;
+  }
 
     this.cartService.addTraining(training); // Business via Service
-    //this.router.navigateByUrl('/cart');
-    this.router.navigate(['cart']);      // Navigation vers /cart
-
+    this.router.navigateByUrl('/cart');
+    //this.router.navigate(['cart']);      // Navigation vers /cart
+    
     console.log('[Trainings] onAddToCart', training.name);//--
 
   }
