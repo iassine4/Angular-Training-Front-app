@@ -1,21 +1,27 @@
 import { Routes } from '@angular/router';
-import { TrainingsComponent } from './components/trainings/trainingsComponent';
-import { CartComponent } from './components/cart/cartComponent';
+
 import { UserForm } from './components/forms/user-form/user-form';
 import { PageNotFound } from './components/error-page/page-not-found/page-not-found';
+import { LoginComponent } from './components/login/login/loginComponent';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'trainings', pathMatch: 'full' },
 
-    {
-        path : 'trainings',
-        component : TrainingsComponent
-    },
     { 
+        path: 'login',
+        component: LoginComponent
+    },
+    {   // route protégée : seul un user connecté accède au panier/commande
         path: 'cart',
-        component : CartComponent
+        canActivate: [authGuard],
+        loadComponent: () => import('./components/cart/cartComponent').then(m => m.CartComponent)
     },
 
+    {
+        path : 'trainings',
+        loadComponent: () => import('./components/trainings/trainingsComponent').then(m => m.TrainingsComponent)
+    },
     {
         path: 'form',
         component: UserForm
