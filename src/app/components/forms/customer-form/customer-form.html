@@ -1,1 +1,54 @@
-<p>costumer-form works!</p>
+<div class="container mt-4" style="max-width: 720px;">
+  <h2 class="mb-3">Informations client (Customer)</h2>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  }
+
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Prénom</label>
+        <input class="form-control" name="firstName" [(ngModel)]="customer.firstName" required #fn="ngModel" />
+        @if (fn.touched && fn.invalid) { <div class="text-danger">Prénom obligatoire.</div> }
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Nom</label>
+        <input class="form-control" name="lastName" [(ngModel)]="customer.lastName" required #ln="ngModel" />
+        @if (ln.touched && ln.invalid) { <div class="text-danger">Nom obligatoire.</div> }
+      </div>
+
+      <div class="col-12">
+        <label class="form-label">Adresse</label>
+        <input class="form-control" name="address" [(ngModel)]="customer.address" required #ad="ngModel" />
+        @if (ad.touched && ad.invalid) { <div class="text-danger">Adresse obligatoire.</div> }
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Ville</label>
+        <input class="form-control" name="city" [(ngModel)]="customer.city" required #ct="ngModel" />
+        @if (ct.touched && ct.invalid) { <div class="text-danger">Ville obligatoire.</div> }
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Code postal</label>
+        <input class="form-control" name="zipCode" [(ngModel)]="customer.zipCode" required minlength="4" #zc="ngModel" />
+        @if (zc.touched && zc.invalid) { <div class="text-danger">Code postal invalide.</div> }
+      </div>
+
+      <div class="col-md-3">
+        <label class="form-label">Téléphone</label>
+        <input class="form-control" name="phone" [(ngModel)]="customer.phone" required #ph="ngModel" />
+        @if (ph.touched && ph.invalid) { <div class="text-danger">Téléphone obligatoire.</div> }
+      </div>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-between align-items-center">
+      <div>
+        <strong>Total :</strong> {{ cartService.total() }}
+      </div>
+      <button class="btn btn-success" [disabled]="f.invalid">Valider la commande</button>
+    </div>
+  </form>
+</div>
