@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { SearchBarComponent } from '../search-bar/search-bar';
 import { FormsModule } from '@angular/forms';
 import { Training } from '../../models/training.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [FormsModule, SearchBarComponent],
+  imports: [FormsModule, SearchBarComponent, CommonModule],
   templateUrl: './cartComponent.html',
   styleUrls: ['./cartComponent.css'],
 })
