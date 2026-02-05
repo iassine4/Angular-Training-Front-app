@@ -74,11 +74,11 @@ export class TrainingsComponent implements OnInit, OnDestroy {
    */
   onAddToCart(training: Training) {
 
-    console.log('[Trainings] onAddToCart', training.name);//--
-
     this.cartService.addTraining(training); // Business via Service
-    this.router.navigateByUrl('/cart');
-    //this.router.navigate(['cart']);      // Navigation vers /cart
+    //this.router.navigateByUrl('/cart');
+    this.router.navigate(['cart']);      // Navigation vers /cart
+
+    console.log('[Trainings] onAddToCart', training.name);//--
 
   }
   
