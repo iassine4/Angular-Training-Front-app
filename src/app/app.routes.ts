@@ -26,6 +26,7 @@ export const routes: Routes = [
         path: 'form',
         component: UserForm
     },
+    { path: 'form', canActivate: [authGuard], loadComponent: () => import('./components/forms/customer-form/customer-form').then(m => m.CustomerFormComponent) },
 
     //toute route inconnue redirige vers /page-not-found
     { path: '**', component: PageNotFound },
