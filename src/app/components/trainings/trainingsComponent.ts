@@ -77,12 +77,10 @@ export class TrainingsComponent implements OnInit, OnDestroy {
    * - puis navigation vers la page panier (slide routage : this.router.navigate(['cart']))
    */
   onAddToCart(training: Training): void {
-
-    if (!this.authService.isAuthenticated) {
+  /*  if (!this.authService.isAuthenticated) {
     this.router.navigate(['/login'], { queryParams: { returnUrl: '/cart' } });
     return;
-  }
-
+  */
     this.cartService.addTraining(training); // Business via Service
     this.router.navigateByUrl('/cart');
     //this.router.navigate(['cart']);      // Navigation vers /cart
