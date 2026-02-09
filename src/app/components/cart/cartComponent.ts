@@ -19,13 +19,13 @@ export class CartComponent implements OnInit, OnDestroy {
   searchTerm = '';
 
   // Injection du service + router
-  constructor(public cartService: CartService, private router: Router){
+  constructor(public cartService: CartService, private router: Router) {
 
-     console.log('[Cart] constructor');//--
-   }
+    console.log('[Cart] constructor');//--
+  }
 
-   // Reçoit le texte émis par <app-search-bar>
-   onSearchTermChange(term: string): void {
+  // Reçoit le texte émis par <app-search-bar>
+  onSearchTermChange(term: string): void {
     this.searchTerm = term;
   }
 
@@ -67,6 +67,9 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   onCommande() {
-  this.router.navigateByUrl('/form');
-}
+    if (this.cartService.getAll().length === 0) {
+      return;
+    }
+    this.router.navigateByUrl('/form');
+  }
 }
