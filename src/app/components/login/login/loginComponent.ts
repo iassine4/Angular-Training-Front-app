@@ -37,8 +37,12 @@ export class LoginComponent {
       this.errorMessage = 'Veuillez corriger les erreurs du formulaire.';
       return;
     }
+    console.log('[Login] submit', { email: this.email, password: this.password });//--
 
     const ok = this.authService.login(this.email, this.password);
+
+    console.log('[Login] ok =>', ok);//--
+    console.log('[Login] localStorage(auth_user) =>', localStorage.getItem('auth_user'));//--
 
     if (!ok) {
       this.errorMessage = 'Identifiants incorrects.';
