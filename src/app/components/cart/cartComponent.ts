@@ -20,10 +20,18 @@ export class CartComponent implements OnInit, OnDestroy {
   searchTerm = '';
 
   // Injection du service + router
-  constructor(public cartService: CartService, private router: Router, private readonly authService: AuthService) {
+  constructor(
+    public cartService: CartService, 
+    private readonly router: Router, 
+    private readonly authService: AuthService
+  ) {
 
     console.log('[Cart] constructor');//--
   }
+
+  get isAuthenticated(): boolean {
+  return this.authService.isAuthenticated;
+}
 
   // Reçoit le texte émis par <app-search-bar>
   onSearchTermChange(term: string): void {
@@ -72,7 +80,7 @@ export class CartComponent implements OnInit, OnDestroy {
     return;
   }
 
-  // On va à /form. Si pas connecté, le guard redirige vers /login?returnUrl=/form
+  // On va à /form. Si pas connecté, le guard redirige vers /login?returnUrl=/form (se connecter puis revenir à la commande)
   this.router.navigateByUrl('/form');
 
   }

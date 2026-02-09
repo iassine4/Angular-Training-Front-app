@@ -46,6 +46,11 @@
                 </tfoot>
             </table>
         </ng-container>
+        @if (!isAuthenticated) {
+        <div class="alert alert-info mt-3" role="alert">
+            Connectez-vous pour finaliser la commande.
+        </div>
+        }
         <div>
             <button class="btn btn-success" (click)="onCommande()">Commande</button>
         </div>
