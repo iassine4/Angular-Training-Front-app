@@ -5,6 +5,7 @@ import { SearchBarComponent } from '../search-bar/search-bar';
 import { FormsModule } from '@angular/forms';
 import { Training } from '../../models/training.model';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +20,7 @@ export class CartComponent implements OnInit, OnDestroy {
   searchTerm = '';
 
   // Injection du service + router
-  constructor(public cartService: CartService, private router: Router) {
+  constructor(public cartService: CartService, private router: Router, private readonly authService: AuthService) {
 
     console.log('[Cart] constructor');//--
   }
@@ -68,8 +69,11 @@ export class CartComponent implements OnInit, OnDestroy {
 
   onCommande() {
     if (this.cartService.getAll().length === 0) {
-      return;
-    }
-    this.router.navigateByUrl('/form');
+    return;
+  }
+
+  // On va à /form. Si pas connecté, le guard redirige vers /login?returnUrl=/form
+  this.router.navigateByUrl('/form');
+
   }
 }

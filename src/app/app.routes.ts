@@ -23,7 +23,7 @@ export const routes: Routes = [
   // Commande (Customer) protégée
   {
     path: 'form',
-    
+    canActivate: [authGuard],
     loadComponent: () =>
       import('./components/forms/customer-form/customer-form').then((m) => m.CustomerFormComponent),
   },
